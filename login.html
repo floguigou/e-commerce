@@ -19,8 +19,8 @@
 <body>
   <main class="mt-5">
     <div class="container">
-      <main>
         <div class="row mt-4">
+          <img src="img/login.png" alt="image">
           <div class="col-6 mx-auto">
             <h1 class="mb-3">Inicio de sesión</h1>
             <hr class="my-4">
@@ -51,8 +51,13 @@
         2022</p>
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
+    <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+      <p>Debe ingresar email y contraseña para ingresar</p>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   </footer>
   <script src="js/login.js"></script>
+  <script src="js/validaciones.js"></script>
 </body>
 
 </html>
