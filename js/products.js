@@ -1,8 +1,9 @@
-fetch("https://japceibal.github.io/emercado-api/cats_products/101.json")
-.then(response => response.json())
-.then(data => showProductsList(data.products))
+// fetch("https://japceibal.github.io/emercado-api/cats_products/101.json")
+// .then(response => response.json())
+// .then(data => showProductsList(data.products))
 
-
+ getJSONData("https://japceibal.github.io/emercado-api/cats_products/101.json")
+.then(data => showProductsList(data.data.products))
 
 
 function showProductsList(array){
