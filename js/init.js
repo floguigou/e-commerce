@@ -39,3 +39,12 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+function obtener_localStorage () {
+  let mostrarEmail = localStorage.getItem("usuario");
+  return mostrarEmail;
+}
+
+let contenedor= document.getElementById("usuario")
+
+contenedor.innerHTML = `<a class="nav-link" href="my-profile.html">${obtener_localStorage()}</a>`;
