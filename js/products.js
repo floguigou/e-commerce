@@ -7,7 +7,6 @@ let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
-
 function showProductsList(){
     let htmlContentToAppend = "";
 
@@ -18,7 +17,7 @@ function showProductsList(){
         ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))) {
 
             htmlContentToAppend +=`
-            <div class="list-group-item list-group-item-action">
+            <div class="list-group-item list-group-item-action" onclick = "setProductID(${product.id})">
                 <div class="row">
                     <div class="col-3">
                         <img src="` + product.image + `" alt="product image" class="img-thumbnail">
@@ -153,3 +152,9 @@ document.getElementById("rangeFilterCount").addEventListener("click", function()
 document.getElementById("input-buscar").addEventListener("keypress", buscar) // el evento se activa cuando el usuario presiona y suelta una tecla
 document.getElementById("input-buscar").addEventListener("keyup", buscar) // el evento se activa cuando el usuario suelta una tecla
 document.getElementById("input-buscar").addEventListener("keydown", buscar) // el evento se activa cuando el usuario presiona una tecla
+
+
+function setProductID(id) {
+    localStorage.setItem("productID", id);
+    window.location = "product-info.html"
+}
