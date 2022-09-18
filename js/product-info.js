@@ -31,8 +31,18 @@ function obtener_localStorage() {
 
 function showProductsInfoList(product) {
     let imgProducts = "";
-    for (let img of product.images) {
-        imgProducts += `<img class="col-2 border m-2" src="${img}"/>`;
+
+    for(let i=1; i<product.images.length; i++) {
+        let img = product.images[i]
+        if (i==1) {
+            imgProducts += `<div class="carousel-item active">
+            <img class="d-block w-100" src="${img}" />
+          </div>`;
+        } else {
+            imgProducts += `<div class="carousel-item">
+            <img class="d-block w-100" src="${img}" />
+          </div>`;
+        }
     }
 
     let products = `<h2> ${product.name} </h2>
@@ -50,11 +60,19 @@ function showProductsInfoList(product) {
     <p> ${product.soldCount} </p>
     <br>
     <h4><strong> Imágenes ilustrativas </strong></h4>
-    <div class="d-flex justify-content-center">
-        <div class="row"> 
-            ${imgProducts}
-        </div>
+    <div id="carouselExampleControls" class="carousel slide col-8" data-ride="carousel">
+    <div class="carousel-inner">
+        ${imgProducts}
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
     `;
     document.getElementById("info-product").innerHTML = products;
 }
