@@ -2,11 +2,6 @@ let productinfo = `https://japceibal.github.io/emercado-api/products/${localStor
 let infocomments = `https://japceibal.github.io/emercado-api/products_comments/${localStorage.getItem("productID")}.json`;
 let comments = [];
 
-function obtener_localStorage() {
-    let mostrarEmail = localStorage.getItem("usuario");
-    return mostrarEmail;
-}
-
 document.addEventListener("DOMContentLoaded", function (evt) {
     getJSONData(productinfo).then(function (resultObj) {
         if (resultObj.status === "ok") {
@@ -20,7 +15,19 @@ document.addEventListener("DOMContentLoaded", function (evt) {
             showProductsComments(comments);
         }
     });
+
+    getJSONData(`https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`)
+    .then(function(resultObj){
+        if (resultObj.status === "ok"){
+            showProductsList(resultObj.data.products)
+        }
+    });
 });
+
+function obtener_localStorage() {
+    let mostrarEmail = localStorage.getItem("usuario");
+    return mostrarEmail;
+}
 
 function showProductsInfoList(product) {
     let imgProducts = "";
@@ -52,17 +59,6 @@ function showProductsInfoList(product) {
     document.getElementById("info-product").innerHTML = products;
 }
 
-const stars = (score) => {
-    let star = "";
-    for (let s = 1; s <= 5; s++) {
-        if (s <= score) {
-            star += '<span class="fa fa-star checked"></span>';
-        } else {
-            star += '<span class="fa fa-star"></span>';
-        }
-    }
-    return star;
-};
 
 function showProductsComments(listComments) {
     let productComments = "";
@@ -82,6 +78,39 @@ function showProductsComments(listComments) {
     }
     document.getElementById("comments-product").innerHTML = productComments;
 }
+
+const stars = (score) => {
+    let star = "";
+    for (let s = 1; s <= 5; s++) {
+        if (s <= score) {
+            star += '<span class="fa fa-star checked"></span>';
+        } else {
+            star += '<span class="fa fa-star"></span>';
+        }
+    }
+    return star;
+};
+
+function showProductsList(products){
+    let htmlContentToAppend = "";
+
+    for(let i = 0; i < 4; i++){ 
+        let product = products[i];
+
+            htmlContentToAppend +=`
+                <div class='col' onclick = "setProductID(${product.id})">
+                <img class="col-8 border m-2" src="` + product.image + `">
+                <h4>`+ product.name +`</h4>
+                </div> 
+            `
+        }
+        document.getElementById("container-relacionados").innerHTML = htmlContentToAppend; 
+    }
+
+    function setProductID(id) {
+        localStorage.setItem("productID", id);
+        window.location = "product-info.html"
+    }
 
 const formatYmd = (date) => date.toISOString().slice(0, 10) + " " + date.toTimeString().slice(0, 8);
 
