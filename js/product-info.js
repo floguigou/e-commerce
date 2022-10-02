@@ -6,20 +6,16 @@ document.addEventListener("DOMContentLoaded", function (evt) {
     getJSONData(productinfo).then(function (resultObj) {
         if (resultObj.status === "ok") {
             showProductsInfoList(resultObj.data);
+            showProductsList(resultObj.data.relatedProducts);
+            //console.log(resultObj.data)
         }
     });
+
 
     getJSONData(infocomments).then(function (resultObj) {
         if (resultObj.status === "ok") {
             comments = resultObj.data;
             showProductsComments(comments);
-        }
-    });
-
-    getJSONData(`https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`)
-    .then(function(resultObj){
-        if (resultObj.status === "ok"){
-            showProductsList(resultObj.data.products)
         }
     });
 });
@@ -112,8 +108,7 @@ const stars = (score) => {
 function showProductsList(products){
     let htmlContentToAppend = "";
 
-    for(let i = 0; i < 4; i++){ 
-        let product = products[i];
+    for(let product of products){ 
 
             htmlContentToAppend +=`
                 <div class='col' onclick = "setProductID(${product.id})">
