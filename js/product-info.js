@@ -68,9 +68,12 @@ function showProductsInfoList(product) {
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>
-  </div>
+ </div>
     `;
     document.getElementById("info-product").innerHTML = products;
+    document.getElementById('comprar').innerHTML = `
+      <button class='btn btn-primary col-1 position-absolute top-20 start-50 ' onclick="addCart(${product.id},' ${product.name} ',${product.soldCount},${product.cost},' ${product.currency} ',' ${product.images[0]} ')">Comprar</button>
+      `
 }
 
 
@@ -148,3 +151,35 @@ buttonEnviar.addEventListener("click", (evt) => {
     inputText.value = "";
     puntuacion.value = 1;
 });
+
+function addCart(id, name, count, unitCost, currency, image){
+    
+    let itemsCart = JSON.parse(localStorage.getItem("carrito"))
+
+    if(JSON.parse(localStorage.carrito).articles.find(Element=>Element.id==id)) {
+        //alert("Articulo ya añadido al carrito")
+       let errorPrueba = document.getElementById("alert-danger");
+       errorPrueba.classList.remove("d-none");
+       setTimeout(() => {
+        errorPrueba.classList.add("d-none");
+       }, 2000);
+
+    } else {
+        let newArticle = {
+            id: id,
+            name: name,
+            count: 1,
+            unitCost: unitCost,
+            currency: currency,
+            image: image
+        }
+    
+        itemsCart.articles.push(newArticle);
+    
+        localStorage.setItem("carrito", JSON.stringify(itemsCart))
+    
+        window.location = "cart.html"
+    
+        showUserCart();
+    }
+}
