@@ -56,5 +56,7 @@ function cerrarSesion() {
   window.location = "index.html"
 }
 
-
-
+if (!localStorage.getItem("usuario")) {
+  window.location.href = "index.html";
+  //console.log("redireccion")
+}

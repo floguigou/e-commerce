@@ -56,16 +56,22 @@ function showUserCart() {
             costoEnvio = costoEnvio + (article.unitCost * article.count) * (envioPorcentaje) / cotizacionDolar;
         }
 
-        articlesList += `
-        <tr>
-        <th scope="row"><img src="${article.image}" alt="article" width="70" height="50"></th>
-        <td>${article.name}</td>
-        <td> ${article.currency} ${article.unitCost}</td>
-        <td> <input type="numeric" id="count" name="articleCount" value="${article.count}" onchange = "updateCount(${article.id},this.value)"></td>
-        <td> ${article.currency} ${article.unitCost * article.count}</td>
-        <td> <button class="fa fa-trash border-0" aria-hidden="true" id="removeItemCart" onclick="removeCart(${article.id})"></button>
+        articlesList += ` <tr>
+            <th scope="row">
+                <img src="${article.image}" alt="article" width="70" height="50">
+            </th>
+            <td>${article.name}</td>
+            <td> ${article.currency} ${article.unitCost}</td>
+            <td> 
+                <input type="numeric" id="count" name="articleCount" value="${article.count}" onchange = "updateCount(${article.id},this.value)">
+            </td>
+            <td> ${article.currency} ${article.unitCost * article.count}
+            </td>
+            <td> 
+                <button class="fa fa-trash border-0" aria-hidden="true" id="removeItemCart" onclick="removeCart(${article.id})"></button>
         </tr>`;
     }
+
     document.getElementById("articles").innerHTML = articlesList;
     document.getElementById("subtotal").innerHTML = "USD " + subtotal;
     document.getElementById('costoEnvio').innerHTML = "USD " + costoEnvio;
